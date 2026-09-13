@@ -543,9 +543,12 @@ function showPage(name){
   
     document.querySelectorAll('[data-example]').forEach(button=>button.addEventListener('click',()=>{
       if(busy)return;
-      $('feeling').value=button.dataset.example;syncInput();
-      $('announcer').textContent='示例已填入，点击向上箭头翻译。';
-      $('feeling').scrollIntoView({block:'nearest',behavior:'smooth'});
+      const input=button.dataset.example;
+      baseTranslation=translate(input);feedback=null;
+      $('translation').textContent=baseTranslation;
+      $('original-text').textContent=input;
+      showPage('result');syncTranslation();
+      $('announcer').textContent='翻译完成。可以选择被说中了或不太对。';
     }));
 
     // The waveform and transcript are a mock UI only. No media or recognition APIs.
